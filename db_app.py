@@ -177,7 +177,6 @@ def update_password():
     finally:
         session.close()
 
-#DELETE-USER ROUTE
 @app.route('/delete-user', methods=['DELETE'])
 def delete_user():
     """
@@ -229,7 +228,6 @@ def api_check():
     logging.info("API HEALTH GETTING CHECKED")
     return jsonify({"message": "api is running!"}), 200
 
-#HEALTH CHECK ROUTE FOR DB
 @app.route('/db-check', methods=['GET'])
 def db_check():
     """
@@ -245,7 +243,7 @@ def db_check():
         return jsonify({"error": f'{e}'}), 500
 
 
-@app.route('/clear-favorite/<int:position>', methods=['POST'])
+@app.route('/clear-favorite/<int:position>', methods=['PUT'])
 def clear_favorite(position = int):
     """
     clears a specified favorite brew position for a user
@@ -290,7 +288,6 @@ def clear_favorite(position = int):
     finally:
         session.close()
 
-#displays a singular brewery given an id
 @app.route('/get-brewery/<id>', methods=['GET'])
 def get_brewery(id: str):
     """
@@ -311,7 +308,7 @@ def get_brewery(id: str):
     except:
         return jsonify({"error": "error getting brewery from API"})
 
-@app.route('/add-favorite/<int:position>', methods=['POST'])
+@app.route('/add-favorite/<int:position>', methods=['PUT'])
 def add_favorite(position: int):
     """
     adds the most recent singular brewery from memory at a position for the user in the database
@@ -436,7 +433,7 @@ def get_random():
     gets a completely random brewery
 
     returns:
-        JSON response that contains the details of a random brewerey or an error with the API
+        JSON response that contains the details of a random brewery or an error with the API
     """
     try:
         response = requests.get("https://api.openbrewerydb.org/v1/breweries/random").json()
