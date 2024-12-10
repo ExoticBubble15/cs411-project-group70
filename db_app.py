@@ -20,7 +20,7 @@ class User(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     username = Column(String, unique=True, nullable=False)
     salt = Column(String, nullable=False)
-    hashed_pwd = Column(String, nullable=False)
+    hashed_password = Column(String, nullable=False)
 
 #create db
 Base.metadata.create_all(engine)
@@ -36,6 +36,10 @@ def gen_salt():
 #create routes
 
 #LOGIN ROUTE
+
+@app.route('/')
+def home():
+    return "<h1>Welcome to the User Login and Registration API!</h1>"
 @app.route('/login', methods=['POST'])
 def login():
     data = request.json
@@ -76,7 +80,7 @@ def create_account():
             return jsonify({"error": "Username already exists."}), 409
         salt = gen_salt()
         hashed_pwd = hash_pwd(password, salt)
-        new_user = User(username = username, salt=salt, hashed_pwd = hashed_pwd)
+        new_user = User(username = username, salt=salt,  hashed_password= hashed_pwd)
         session.add(new_user)
         session.commit()
         #if committed, return CREATED response
@@ -84,4 +88,7 @@ def create_account():
     finally:
         session.close()
 
-#UPDATE-PASSWORD ROUTE
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
