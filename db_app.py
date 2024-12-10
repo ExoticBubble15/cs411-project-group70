@@ -56,7 +56,7 @@ def login():
             return jsonify({"error": "Invalid username or password."}), 401
 
         hashed_pwd = hash_pwd(password, user.salt)
-        if hashed_pwd == user.hashed_pwd:
+        if hashed_pwd == user.hashed_password :
             return jsonify({"message": "Login successful."}), 200
         else:
             return jsonify({"error": "Invalid username or password."}), 401
