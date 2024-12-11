@@ -160,7 +160,7 @@ def update_password():
             return jsonify({"error": "username does not exist"}), 400
         
         hash_old_pwd = hash_pwd(oldPassword, user.salt)
-        hash_new_pwd = hash.pwd(newPassword, user.salt)
+        hash_new_pwd = hash_pwd(newPassword, user.salt)
 
         if hash_old_pwd != user.hashed_password: #old password does not match password in db
             return jsonify({"error": "incorrect old password"}), 400
