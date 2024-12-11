@@ -433,7 +433,7 @@ def add_favorite(position: int):
             case 5:
                 user.favorite_brew_5 = brewery
         session.commit()
-        return jsonify({"message": f'successfully updaed favorite brewery {position}'}), 200
+        return jsonify({"message": f'successfully updated favorite brewery {position}'}), 200
     except:
         return jsonify({"error": "error interacting with the db"}), 400
     finally:
@@ -509,7 +509,6 @@ def view_favorites():
     finally:
         session.close()
 
-#returns a completely random brewery
 @app.route('/get-random', methods=['GET'])
 def get_random():
     """
