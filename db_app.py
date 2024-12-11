@@ -50,9 +50,92 @@ def gen_salt():
     return os.urandom(16).hex()
 
 #home page for front end (if we get there)
-@app.route('/')
+@app.route('/', methods=['POST','GET'])
 def home():
-    return "<h1>Welcome to the User Login and Registration API!</h1>"
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
+        return f"<h1>Welcome, {username}!</h1><p>Password received securely.</p>"
+
+    
+    return """
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>User Brew System</title>
+        <style>
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                margin: 0;
+                font-family: Arial, sans-serif;
+                background-color: #f3f3f3;
+            }
+            form {
+                display: flex;
+                flex-direction: column;
+                   align-items: center; 
+                padding: 20px;
+                border: 1px solid #ccc;
+                border-radius: 20px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                background: #fff;
+            }
+            h1 {
+                text-align: center;
+            }
+            label {
+                font-weight: bold;
+                 align-self: flex-start;
+            }
+            input[type="text"], input[type="password"] {
+               
+                width: 70%;
+                padding: 8px;
+                margin: 8px 0;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+            }
+            input[type="submit"] {
+              
+                width: 80%;
+                padding: 10px;
+                border: none;
+                border-radius: 5px;
+                background-color: #007BFF;
+                color: white;
+                font-size: 16px;
+                cursor: pointer;
+            }
+            input[type="submit"]:hover {
+                background-color: #0056b3;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <h1>Welcome to the User Brew system!</h1>
+            <form method="POST">
+                <label for="username">Username:</label><br>
+                <input type="text" id="username" name="username"><br><br>
+                
+                <label for="password">Password:</label><br>
+                <input type="password" id="password" name="password"><br><br>
+                
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+    </body>
+    </html>
+    """
+
+   
+
+
 
 ##########################################
 # requirement: secure password storage 
